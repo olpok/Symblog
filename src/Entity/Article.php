@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
@@ -18,16 +19,28 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 55,
+     *      minMessage = "Votre titre est bien trop court!",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(
+     *      min = 10,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long"
+     * )
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Url
      */
     private $image;
 
