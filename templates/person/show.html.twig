@@ -21,11 +21,11 @@
             </tr>
             <tr>
                 <th>FamilyTypology</th>
-                <td>{{ person.familyTypology }}</td>
+                <td>{{ person.familyType }}</td>
             </tr>
             <tr>
                 <th>BirthDate</th>
-                <td>{{ person.birthDate ? person.birthDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ person.birthDate ? person.birthDate|date('Y-d-m') : '' }}</td>
             </tr>
         </tbody>
     </table>

@@ -31,6 +31,13 @@ class Person
      */
     private $familyTypology;
 
+    const HEAT = [
+        0 => 'Homme seul',
+        1 => 'Femme seule',
+        2 => 'Couple sans enfants',
+        3 => 'Famille avec enfants'
+    ];
+
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
@@ -70,6 +77,13 @@ class Person
         return $this->familyTypology;
     }
 
+    public function getFamilyType(): string
+    {
+        $type = $this->familyTypology;
+        return self::HEAT[$type];
+        // return self::HEAT[2];
+    }
+
     public function setFamilyTypology(?int $familyTypology): self
     {
         $this->familyTypology = $familyTypology;
@@ -81,6 +95,11 @@ class Person
     {
         return $this->birthDate;
     }
+
+    /*public function getFormattedBirthDate(): string
+    {
+        return date_format($this->birthDate, "Y/m/d");
+    }*/
 
     public function setBirthDate(?\DateTimeInterface $birthDate): self
     {

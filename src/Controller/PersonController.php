@@ -22,6 +22,11 @@ class PersonController extends AbstractController
     {
         return $this->render('person/index.html.twig', [
             'people' => $personRepository->findAll(),
+            'familyType' =>
+            Person::HEAT
+            // 0 => 'Homme seul', //ok
+            //  1 => 'Femme seule' //ok
+            // ]
         ]);
     }
 
@@ -83,7 +88,7 @@ class PersonController extends AbstractController
      */
     public function delete(Request $request, Person $person): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$person->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $person->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($person);
             $entityManager->flush();
