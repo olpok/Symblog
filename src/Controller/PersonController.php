@@ -22,11 +22,32 @@ class PersonController extends AbstractController
     {
         return $this->render('person/index.html.twig', [
             'people' => $personRepository->findAll(),
-            'familyType' =>
-            Person::HEAT
-            // 0 => 'Homme seul', //ok
-            //  1 => 'Femme seule' //ok
-            // ]
+            'familyType' => Person::HEAT
+        ]);
+    }
+
+    /**
+     * @Route("/oldest", name="person_index_oldest", methods={"GET"})
+     */
+    public function oldest(PersonRepository $personRepository): Response
+    {
+        return $this->render('person/oldest.html.twig', [
+            'people' => $personRepository->findOldest(),
+
+            'familyType' => Person::HEAT
+        ]);
+    }
+
+    /**
+     * @Route("/latest", name="person_index_latest", methods={"GET"})
+     */
+    public function latest(PersonRepository $personRepository): Response
+    {
+        $birthDate = "1940-01-01";
+        return $this->render('person/latest.html.twig', [
+            'people' => $personRepository->findLatestYoungestThan($birthDate),
+
+            'familyType' => Person::HEAT
         ]);
     }
 

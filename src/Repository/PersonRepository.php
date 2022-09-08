@@ -19,6 +19,53 @@ class PersonRepository extends ServiceEntityRepository
         parent::__construct($registry, Person::class);
     }
 
+    /**
+     * @return Person[]
+     */
+    public function findAllGreaterThanPrice(int $price): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT p
+            FROM App\Entity\Product p
+            WHERE p.price > :price
+            ORDER BY p.price ASC'
+        )->setParameter('price', $price);
+
+        // returns an array of Product objects
+        return $query->getResult();
+    }
+
+    /**
+     * @return Person[] Returns an array of Person objects
+     */
+
+    public function findOldest()
+    {
+        return $this->createQueryBuilder('p')
+            // ->andWhere('p.exampleField = :val')
+            // ->setParameter('val', $birthDate)
+            ->orderBy('p.birthDate', 'ASC')
+            ->setMaxResults(4)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findLatestYoungestThan($birthDate)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.birthDate > = :val')
+            ->setParameter('val', $birthDate)
+            ->orderBy('p.id', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult();
+    }
+
+
+
+
     // /**
     //  * @return Person[] Returns an array of Person objects
     //  */
